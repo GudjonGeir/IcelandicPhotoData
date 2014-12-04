@@ -27,13 +27,15 @@ for x in range(1, totalPages + 1):
 			cursor.execute('INSERT INTO Photographer(id, username, country) VALUES(?, ?, ?)', (p['user']['id'],p['user']['username'],p['user']['country']))
 		
 		# Insert photos
-		cursor.execute('''INSERT INTO Photo(id, Photographer, latitude, longitude, camera, date)
+		cursor.execute('''SELECT id FROM Photo WHERE id=?''', (p['id'],))
+		if cursor.fetchone() is None:
+			cursor.execute('''INSERT INTO Photo(id, Photographer, latitude, longitude, camera, date)
 	                  VALUES(?,?,?,?,?,?)''', (p['id'],p['user']['username'], p['latitude'], p['longitude'],p['camera'],p['taken_at']))
-
+	db.commit()
 	print "Page %d of %d" % (x, totalPages)
 	
 
 
-db.commit()
+
 db.close
 print "Finished"

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Photo Icelandic Bank</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() { 
+			$('#photographers_table').on('click', function() {
+				console.log("ClickedButton");
+				$("#my-table tbody").append('<tr><td>John</td><td>British</td></tr>tr><td>Jón</td><td>Icelandic</td></tr>');
+			});
+		});
+	</script>
+</head>
+<body>
+<div class="col-md-12">
+	
+</div>
+<div class="col-md-12">
+	<button id="photographers_table" class="btn btn-primary">Photographers</button>
+	<table id="my-table" class="table">
+	<caption>Photographers</caption>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Nationality</th>
+		</tr>
+	</thead>
+	<tbody id="table-body">
+		
+	</tbody>
+</table>
+</div>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</body>
+</html>

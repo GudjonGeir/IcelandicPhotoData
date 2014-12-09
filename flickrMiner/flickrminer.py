@@ -14,16 +14,19 @@ db = sqlite3.connect('flickr.sqlite')
 cursor = db.cursor()
 
 errorLog = open("log.txt", "a")
+pageLog = open("pagelog.txt", "a")
 
 
-baseurl = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=29ed4941678bd1f6b291fc0379ee2126&place_id=jPn7LAVTUb5tyPnsog&media=&per_page=500&format=json&nojsoncallback=1'
+baseurl = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e2cc3f278fde020b3a1d4a720893caa9&place_id=jPn7LAVTUb5tyPnsog&media=&per_page=500&format=json&nojsoncallback=1'
 response = requests.get(baseurl).json()
 totalPages = response['photos']['pages']
 
 
-# for page in range(1, totalPages + 1):
-for page in range(1, 4):
-	response = requests.get(baseurl + "&page=" + str(page)).json()
+for page in range(10, totalPages + 1):
+	pageLog.write("Page " + str(page) + "\n")
+	response = requests.get("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e2cc3f278fde020b3a1d4a720893caa9&place_id=jPn7LAVTUb5tyPnsog&per_page=500&page=" + str(page) + "&format=json&nojsoncallback=1").json()
+	if response['stat'] != "ok":
+		print response
 	photosInPage = response['photos']['photo']
 
 	counter = 0
@@ -35,7 +38,12 @@ for page in range(1, 4):
 			print "Photo " + str(counter) + " on page " + str(page)
 
 		photoid = p['id']
-		photoGetInfo = 'https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=29ed4941678bd1f6b291fc0379ee2126&photo_id=' + str(photoid) + '&format=json&nojsoncallback=1'
+		cursor.execute('''SELECT id FROM Photo WHERE id=?''', (photoid,))
+		if cursor.fetchone() is not None:
+			#print "Photo exists, skipping. PhotoID: " + str(photoid)
+			continue
+
+		photoGetInfo = 'https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=e2cc3f278fde020b3a1d4a720893caa9&photo_id=' + str(photoid) + '&format=json&nojsoncallback=1'
 		photoinfo = requests.get(photoGetInfo).json()
 		if photoinfo['stat'] == "ok":
 			photographer = photoinfo['photo']['owner']['nsid']
@@ -47,8 +55,9 @@ for page in range(1, 4):
 			errorLog.write("Error code #" + str(photoinfo['code']) + " in photos.getInfo - photoid = " + str(photoid) + "\n")
 			continue
 
-		photoGetExif = 'https://api.flickr.com/services/rest/?method=flickr.photos.getExif&api_key=29ed4941678bd1f6b291fc0379ee2126&photo_id=' + str(photoid) + '&format=json&nojsoncallback=1'
+		photoGetExif = 'https://api.flickr.com/services/rest/?method=flickr.photos.getExif&api_key=e2cc3f278fde020b3a1d4a720893caa9&photo_id=' + str(photoid) + '&format=json&nojsoncallback=1'
 		photoExif = requests.get(photoGetExif).json()
+		camera = None
 		if photoExif['stat'] == "ok":
 			camera = photoExif['photo']['camera']
 		else:
@@ -88,6 +97,7 @@ for page in range(1, 4):
 	db.commit()
 
 errorLog.close()
+pagelog.close()
 db.close()
 print "Finished"
 

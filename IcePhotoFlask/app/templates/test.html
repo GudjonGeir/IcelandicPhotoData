@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for camera in CameraType%}
+    <h1>{{ camera[0] }}</h1>
+    {% endfor %}
+{% endblock %}

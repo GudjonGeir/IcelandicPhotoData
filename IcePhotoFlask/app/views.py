@@ -55,9 +55,9 @@ AND p.photographer IN(SELECT photographer
 	coordList = []
 	counter = 0
 	for row in coordinates:
-		counter += 1
-		if counter == 1000:
-			break
+		# counter += 1
+		# if counter == 1000:
+		# 	break
 		coord = {
 			'lat': row[0],
 			'long': row[1]

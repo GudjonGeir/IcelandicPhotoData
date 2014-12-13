@@ -56,7 +56,7 @@ AND p.photographer IN(SELECT photographer
 	counter = 0
 	for row in coordinates:
 		counter += 1
-		if counter == 100:
+		if counter == 1000:
 			break
 		coord = {
 			'lat': row[0],

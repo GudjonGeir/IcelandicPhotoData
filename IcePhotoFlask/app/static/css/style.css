@@ -1,3 +1,23 @@
-h1{
-	color: magenta;
+#sidebar-wrapper {
+	background: #4c92cd !important;
+}
+
+#sidebar-wrapper ul li a{
+	color: white;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: "Ubuntu", Helvetica, Arial, sans-serif!important;
 }

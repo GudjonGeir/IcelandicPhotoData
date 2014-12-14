@@ -41,6 +41,10 @@ def testmap():
 	return render_template("testmap.html",
 							title='Map')
 
+@app.route('/testcharts')
+def testcharts():
+	return render_template("testcharts.html",
+							title='Charts')
 
 
 @app.route('/getcoords')
@@ -48,6 +52,10 @@ def getcoords():
 	nationality = request.args.get('nat')
 	year = request.args.get('year')
 	month = request.args.get('month')
+	if year == "00":
+		year = None
+	if month == "00":
+		month = None
 
 	if month is None and year is None and nationality is not None:
 		if nationality == "1":
@@ -178,7 +186,7 @@ def getcoords():
 	counter = 0
 	for row in coordinates:
 		counter += 1
-		if counter == 1000:
+		if counter == 100:
 			break
 		coord = {
 			'lat': row[0],
@@ -193,137 +201,139 @@ def getcoords():
 def getcount():
 	nationality = request.args.get('nat')
 	year = request.args.get('year')
-	month = request.args.get('month')
+	if year == "00":
+		year = None
+	result = []
+	for x in xrange(1,13):
+		if x<10:
+			month = "0" + str(x)
+		else:
+			month = str(x)
+		if year is None and nationality is not None:
+			if nationality == "1":
+				cursor.execute('''SELECT COUNT(*)
+									FROM Photo p
+									WHERE latitude IS NOT NULL
+									AND longitude IS NOT NULL
+									AND strftime('%m', date) = ?
+									AND p.photographer IN(SELECT photographer
+															FROM Photographer pg
+															WHERE pg.country LIKE '%Iceland%')''', (month,))
+			elif nationality == "2":
+				cursor.execute('''SELECT COUNT(*)
+								FROM Photo p, Photographer pg
+								WHERE p.photographer = pg.photographer
+								AND latitude IS NOT NULL
+								AND longitude IS NOT NULL
+								AND strftime('%m', date) = ?
+								AND pg.country IS NOT NULL
+								AND pg.country <> ""
+								AND pg.country NOT LIKE "%Iceland%"''', (month,))
+			elif nationality == "3":
+				cursor.execute('''SELECT COUNT(*)
+									FROM Photo p
+									WHERE latitude IS NOT NULL
+									AND longitude IS NOT NULL
+									AND strftime('%m', date) = ?
+									AND p.photographer IN(SELECT photographer
+														FROM Photographer pg
+														WHERE pg.country IS NULL
+														OR pg.country = "")''', (month,))
+		elif year is not None and nationality is not None:
+			if nationality == "1":
+				cursor.execute('''SELECT COUNT(*)
+									FROM Photo p
+									WHERE latitude IS NOT NULL
+									AND longitude IS NOT NULL
+									AND strftime('%Y', date) = ?
+									AND strftime('%m', date) = ?
+									AND p.photographer IN(SELECT photographer
+															FROM Photographer pg
+															WHERE pg.country LIKE '%Iceland%')''', (year,month))
+			elif nationality == "2":
+				cursor.execute('''SELECT COUNT(*)
+								FROM Photo p, Photographer pg
+								WHERE p.photographer = pg.photographer
+								AND latitude IS NOT NULL
+								AND longitude IS NOT NULL
+								AND strftime('%Y', date) = ?
+								AND strftime('%m', date) = ?
+								AND pg.country IS NOT NULL
+								AND pg.country <> ""
+								AND pg.country NOT LIKE "%Iceland%"''', (year,month))
+			elif nationality == "3":
+				cursor.execute('''SELECT COUNT(*)
+									FROM Photo p
+									WHERE latitude IS NOT NULL
+									AND longitude IS NOT NULL
+									AND strftime('%Y', date) = ?
+									AND strftime('%m', date) = ?
+									AND p.photographer IN(SELECT photographer
+														FROM Photographer pg
+														WHERE pg.country IS NULL
+														OR pg.country = "")''', (year,month))
+		else:
+			return None	
+		currentcount = cursor.fetchone()[0]
+		result.append(currentcount)
 
-	if month is None and year is None and nationality is not None:
-		if nationality == "1":
-			cursor.execute('''SELECT COUNT(*)
-							FROM Photo p
-							WHERE p.photographer IN(SELECT photographer
-													FROM Photographer pg
-													WHERE pg.country LIKE '%Iceland%')''')
-		elif nationality == "2":
-			cursor.execute('''SELECT COUNT(*)
-							FROM Photo p, Photographer pg
-							WHERE p.photographer = pg.photographer
-							AND pg.country IS NOT NULL
-							AND pg.country <> ""
-							AND pg.country NOT LIKE "%Iceland%"''')
-		elif nationality == "3":
-			cursor.execute('''SELECT COUNT(*)
-								FROM Photo p
-								WHERE latitude IS NOT NULL
-								AND longitude IS NOT NULL
-								AND p.photographer IN(SELECT photographer
-													FROM Photographer pg
-													WHERE pg.country IS NULL
-													OR pg.country = "")''')
-	
-	elif month is not None and year is None and nationality is not None:
-		if nationality == "1":
-			cursor.execute('''SELECT COUNT(*)
-								FROM Photo p
-								WHERE latitude IS NOT NULL
-								AND longitude IS NOT NULL
-								AND strftime('%m', date) = ?
-								AND p.photographer IN(SELECT photographer
-														FROM Photographer pg
-														WHERE pg.country LIKE '%Iceland%')''', (month,))
-		elif nationality == "2":
-			cursor.execute('''SELECT COUNT(*)
-							FROM Photo p, Photographer pg
-							WHERE p.photographer = pg.photographer
-							AND latitude IS NOT NULL
-							AND longitude IS NOT NULL
-							AND strftime('%m', date) = ?
-							AND pg.country IS NOT NULL
-							AND pg.country <> ""
-							AND pg.country NOT LIKE "%Iceland%"''', (month,))
-		elif nationality == "3":
-			cursor.execute('''SELECT COUNT(*)
-								FROM Photo p
-								WHERE latitude IS NOT NULL
-								AND longitude IS NOT NULL
-								AND strftime('%m', date) = ?
-								AND p.photographer IN(SELECT photographer
-													FROM Photographer pg
-													WHERE pg.country IS NULL
-													OR pg.country = "")''', (month,))
-	elif month is None and year is not None and nationality is not None:
-		if nationality == "1":
-			cursor.execute('''SELECT COUNT(*)
-								FROM Photo p
-								WHERE latitude IS NOT NULL
-								AND longitude IS NOT NULL
-								AND strftime('%Y', date) = ?
-								AND p.photographer IN(SELECT photographer
-														FROM Photographer pg
-														WHERE pg.country LIKE '%Iceland%')''', (year,))
-		elif nationality == "2":
-			cursor.execute('''SELECT COUNT(*)
-							FROM Photo p, Photographer pg
-							WHERE p.photographer = pg.photographer
-							AND latitude IS NOT NULL
-							AND longitude IS NOT NULL
-							AND strftime('%Y', date) = ?
-							AND pg.country IS NOT NULL
-							AND pg.country <> ""
-							AND pg.country NOT LIKE "%Iceland%"''', (year,))
-		elif nationality == "3":
-			cursor.execute('''SELECT COUNT(*)
-								FROM Photo p
-								WHERE latitude IS NOT NULL
-								AND longitude IS NOT NULL
-								AND strftime('%Y', date) = ?
-								AND p.photographer IN(SELECT photographer
-													FROM Photographer pg
-													WHERE pg.country IS NULL
-													OR pg.country = "")''', (year,))
-	elif month is not None and year is not None and nationality is not None:
-		if nationality == "1":
-			cursor.execute('''SELECT COUNT(*)
-								FROM Photo p
-								WHERE latitude IS NOT NULL
-								AND longitude IS NOT NULL
-								AND strftime('%Y', date) = ?
-								AND strftime('%m', date) = ?
-								AND p.photographer IN(SELECT photographer
-														FROM Photographer pg
-														WHERE pg.country LIKE '%Iceland%')''', (year,month))
-		elif nationality == "2":
-			cursor.execute('''SELECT COUNT(*)
-							FROM Photo p, Photographer pg
-							WHERE p.photographer = pg.photographer
-							AND latitude IS NOT NULL
-							AND longitude IS NOT NULL
-							AND strftime('%Y', date) = ?
-							AND strftime('%m', date) = ?
-							AND pg.country IS NOT NULL
-							AND pg.country <> ""
-							AND pg.country NOT LIKE "%Iceland%"''', (year,month))
-		elif nationality == "3":
-			cursor.execute('''SELECT COUNT(*)
-								FROM Photo p
-								WHERE latitude IS NOT NULL
-								AND longitude IS NOT NULL
-								AND strftime('%Y', date) = ?
-								AND strftime('%m', date) = ?
-								AND p.photographer IN(SELECT photographer
-													FROM Photographer pg
-													WHERE pg.country IS NULL
-													OR pg.country = "")''', (year,month))
-	else:
-		return None
-
-	count = {
-		'count': cursor.fetchone()[0]
-	}
-	
-	jsonefiedString = json.dumps(count).decode('utf-8')
+	print "hello"
+	jsonefiedString = json.dumps(result).decode('utf-8')
 	return jsonefiedString
 
-
-
+		# if year is None and nationality is not None:
+		# 	if nationality == "1":
+		# 		cursor.execute('''SELECT COUNT(*)
+		# 						FROM Photo p
+		# 						WHERE p.photographer IN(SELECT photographer
+		# 												FROM Photographer pg
+		# 												WHERE pg.country LIKE '%Iceland%')''')
+		# 	elif nationality == "2":
+		# 		cursor.execute('''SELECT COUNT(*)
+		# 						FROM Photo p, Photographer pg
+		# 						WHERE p.photographer = pg.photographer
+		# 						AND pg.country IS NOT NULL
+		# 						AND pg.country <> ""
+		# 						AND pg.country NOT LIKE "%Iceland%"''')
+		# 	elif nationality == "3":
+		# 		cursor.execute('''SELECT COUNT(*)
+		# 							FROM Photo p
+		# 							WHERE latitude IS NOT NULL
+		# 							AND longitude IS NOT NULL
+		# 							AND p.photographer IN(SELECT photographer
+		# 												FROM Photographer pg
+		# 												WHERE pg.country IS NULL
+		# 												OR pg.country = "")''')
+		# elif year is not None and nationality is not None:
+		# 	if nationality == "1":
+		# 		cursor.execute('''SELECT COUNT(*)
+		# 							FROM Photo p
+		# 							WHERE latitude IS NOT NULL
+		# 							AND longitude IS NOT NULL
+		# 							AND strftime('%Y', date) = ?
+		# 							AND p.photographer IN(SELECT photographer
+		# 													FROM Photographer pg
+		# 													WHERE pg.country LIKE '%Iceland%')''', (year,))
+		# 	elif nationality == "2":
+		# 		cursor.execute('''SELECT COUNT(*)
+		# 						FROM Photo p, Photographer pg
+		# 						WHERE p.photographer = pg.photographer
+		# 						AND latitude IS NOT NULL
+		# 						AND longitude IS NOT NULL
+		# 						AND strftime('%Y', date) = ?
+		# 						AND pg.country IS NOT NULL
+		# 						AND pg.country <> ""
+		# 						AND pg.country NOT LIKE "%Iceland%"''', (year,))
+		# 	elif nationality == "3":
+		# 		cursor.execute('''SELECT COUNT(*)
+		# 							FROM Photo p
+		# 							WHERE latitude IS NOT NULL
+		# 							AND longitude IS NOT NULL
+		# 							AND strftime('%Y', date) = ?
+		# 							AND p.photographer IN(SELECT photographer
+		# 												FROM Photographer pg
+		# 												WHERE pg.country IS NULL
+		# 												OR pg.country = "")''', (year,))
 
 
 

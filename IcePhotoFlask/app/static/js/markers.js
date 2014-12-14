@@ -1,6 +1,6 @@
 $(document).ready(function() {
   var myLatLng = new google.maps.LatLng(64.965003, -18.872854);
-  MYMAP.init('#googleMap', myLatLng, 7);
+  MYMAP.init('#googleMap', myLatLng, 10);
   
   $("#showmarkers").click(function(e){
 		MYMAP.placeMarkers();

@@ -1,126 +1,173 @@
+var byMonthChartElement;
+var byMonthChart;
+var byYearChartElement;
+var byYearChart;
 
+var options = {
+	///Boolean - Whether grid lines are shown across the chart
+	scaleShowGridLines : false,
 
+	//Boolean - Whether the line is curved between points
+	bezierCurve : false,
 
-var data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-        {
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 86, 27, 90]
-        }
-    ]
-};
+	//Boolean - Whether to show a dot for each point
+	pointDot : true,
+
+	//Number - Radius of each point dot in pixels
+	pointDotRadius : 4,
+
+	//Number - Pixel width of point dot stroke
+	pointDotStrokeWidth : 1,
+
+	//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+	pointHitDetectionRadius : 20,
+
+	//Boolean - Whether to show a stroke for datasets
+	datasetStroke : true,
+
+	//Number - Pixel width of dataset stroke
+	datasetStrokeWidth : 2,
+
+	//Boolean - Whether to fill the dataset with a colour
+	datasetFill : true,
+
+	//String - A legend template
+	legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><div style=\"color:<%=datasets[i].strokeColor%>\"><div></div><%if(datasets[i].label){%><%=datasets[i].label%><%}%></div><%}%></div>"
+}
 
 $(document).ready(function() {
 	getCountByYear();
 	$(".getCount").click(function(e){
 		getCountByMonth($(this).attr('year'));
 	});
-
-	var ctx = document.getElementById("myChart").getContext("2d");
-	var myNewChart = new Chart(ctx).Line(data);
+	byMonthChartElement = document.getElementById("byMonth").getContext("2d");
+	byYearChartElement = document.getElementById("byYear").getContext("2d");
 });
 
 
 
 
 
-
-
 function getCountByMonth(clickedYear) {
-	$.getJSON( "/getcountbymonth", { nat: 1, year: clickedYear } )
-		.done(function( data ) {
-			$("#Jan1").html(data[0]);
-			$("#Feb1").html(data[1]);
-			$("#Mar1").html(data[2]);
-			$("#Apr1").html(data[3]);
-			$("#May1").html(data[4]);
-			$("#Jun1").html(data[5]);
-			$("#Jul1").html(data[6]);
-			$("#Aug1").html(data[7]);
-			$("#Sep1").html(data[8]);
-			$("#Oct1").html(data[9]);
-			$("#Nov1").html(data[10]);
-			$("#Des1").html(data[11]);
+	$.getJSON( "/getcountbymonth", { year: clickedYear } )
+		.done(function( result ) {
+			var data = {
+			labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+			datasets: [
+				{
+					label: "Icelandic",
+					fillColor: "rgba(220,220,220,0.2)",
+					strokeColor: "rgba(220,220,220,1)",
+					pointColor: "rgba(220,220,220,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(220,220,220,1)",
+					data: result.iceland
+				},
+				{
+					label: "Foreign",
+					fillColor: "rgba(151,187,205,0.2)",
+					strokeColor: "rgba(151,187,205,1)",
+					pointColor: "rgba(151,187,205,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(151,187,205,1)",
+					data: result.foreign
+				},
+				{
+					label: "Unknown",
+					fillColor: "rgba(151,187,205,0.2)",
+					strokeColor: "rgba(151,187,205,1)",
+					pointColor: "rgba(151,187,205,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(151,187,205,1)",
+					data: result.unknown
+				}
+			]
+		};
+		if (byMonthChart) {
+			byMonthChart.destroy();
+			$("#byMonth").attr('width', '800');
+			$("#byMonth").attr('height', '400');
+		};
+		byMonthChart = new Chart(byMonthChartElement).Line(data, options);
+		$("#byMonthLegend").html(byMonthChart.generateLegend());
 	});
-	$.getJSON( "/getcountbymonth", { nat: 2, year: clickedYear } )
-		.done(function( data ) {
-			$("#Jan2").html(data[0]);
-			$("#Feb2").html(data[1]);
-			$("#Mar2").html(data[2]);
-			$("#Apr2").html(data[3]);
-			$("#May2").html(data[4]);
-			$("#Jun2").html(data[5]);
-			$("#Jul2").html(data[6]);
-			$("#Aug2").html(data[7]);
-			$("#Sep2").html(data[8]);
-			$("#Oct2").html(data[9]);
-			$("#Nov2").html(data[10]);
-			$("#Des2").html(data[11]);
-	});
-	$.getJSON( "/getcountbymonth", { nat: 3, year: clickedYear } )
-		.done(function( data ) {
-			$("#Jan3").html(data[0]);
-			$("#Feb3").html(data[1]);
-			$("#Mar3").html(data[2]);
-			$("#Apr3").html(data[3]);
-			$("#May3").html(data[4]);
-			$("#Jun3").html(data[5]);
-			$("#Jul3").html(data[6]);
-			$("#Aug3").html(data[7]);
-			$("#Sep3").html(data[8]);
-			$("#Oct3").html(data[9]);
-			$("#Nov3").html(data[10]);
-			$("#Des3").html(data[11]);
-	});
+
+
+	
 }
 
 
 function getCountByYear() {
 	$.getJSON( "/getcountbyyear", {} )
-		.done(function( data ) {
-			$("#i2007").html(data.iceland[0]);
-			$("#i2008").html(data.iceland[1]);
-			$("#i2009").html(data.iceland[2]);
-			$("#i2010").html(data.iceland[3]);
-			$("#i2011").html(data.iceland[4]);
-			$("#i2012").html(data.iceland[5]);
-			$("#i2013").html(data.iceland[6]);
-			$("#i2014").html(data.iceland[7]);
+		.done(function( result ) {
+			var data = {
+				labels: ["2009", "2010", "2011", "2012", "2013", "2014"],
+				datasets: [
+					{
+						label: "Icelandic",
+						fillColor: "rgba(220,220,220,0.2)",
+						strokeColor: "rgba(220,220,220,1)",
+						pointColor: "rgba(220,220,220,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(220,220,220,1)",
+						data: result.iceland
+					},
+					{
+						label: "Foreign",
+						fillColor: "rgba(151,187,205,0.2)",
+						strokeColor: "rgba(151,187,205,1)",
+						pointColor: "rgba(151,187,205,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(151,187,205,1)",
+						data: result.foreign
+					},
+					{
+						label: "Unknown",
+						fillColor: "rgba(151,187,205,0.2)",
+						strokeColor: "rgba(151,187,205,1)",
+						pointColor: "rgba(151,187,205,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(151,187,205,1)",
+						data: result.unknown
+					}
+				]
+			};
 
-			$("#f2007").html(data.foreign[0]);
-			$("#f2008").html(data.foreign[1]);
-			$("#f2009").html(data.foreign[2]);
-			$("#f2010").html(data.foreign[3]);
-			$("#f2011").html(data.foreign[4]);
-			$("#f2012").html(data.foreign[5]);
-			$("#f2013").html(data.foreign[6]);
-			$("#f2014").html(data.foreign[7]);
+		byYearChart = new Chart(byYearChartElement).Line(data, options);
+		$("#byYearLegend").html(byYearChart.generateLegend());
 
-			$("#u2007").html(data.unknown[0]);
-			$("#u2008").html(data.unknown[1]);
-			$("#u2009").html(data.unknown[2]);
-			$("#u2010").html(data.unknown[3]);
-			$("#u2011").html(data.unknown[4]);
-			$("#u2012").html(data.unknown[5]);
-			$("#u2013").html(data.unknown[6]);
-			$("#u2014").html(data.unknown[7]);
+			// $("#i2007").html(data.iceland[0]);
+			// $("#i2008").html(data.iceland[1]);
+			// $("#i2009").html(data.iceland[2]);
+			// $("#i2010").html(data.iceland[3]);
+			// $("#i2011").html(data.iceland[4]);
+			// $("#i2012").html(data.iceland[5]);
+			// $("#i2013").html(data.iceland[6]);
+			// $("#i2014").html(data.iceland[7]);
+
+			// $("#f2007").html(data.foreign[0]);
+			// $("#f2008").html(data.foreign[1]);
+			// $("#f2009").html(data.foreign[2]);
+			// $("#f2010").html(data.foreign[3]);
+			// $("#f2011").html(data.foreign[4]);
+			// $("#f2012").html(data.foreign[5]);
+			// $("#f2013").html(data.foreign[6]);
+			// $("#f2014").html(data.foreign[7]);
+
+			// $("#u2007").html(data.unknown[0]);
+			// $("#u2008").html(data.unknown[1]);
+			// $("#u2009").html(data.unknown[2]);
+			// $("#u2010").html(data.unknown[3]);
+			// $("#u2011").html(data.unknown[4]);
+			// $("#u2012").html(data.unknown[5]);
+			// $("#u2013").html(data.unknown[6]);
+			// $("#u2014").html(data.unknown[7]);
 
 	});
 }

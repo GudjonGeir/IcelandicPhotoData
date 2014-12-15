@@ -41,6 +41,11 @@ def testmap():
 	return render_template("testmap.html",
 							title='Map')
 
+@app.route('/fttestmap')
+def fttestmap():
+	return render_template("FTtestmap.html",
+							title='Map')
+
 @app.route('/testcharts')
 def testcharts():
 	return render_template("testcharts.html",

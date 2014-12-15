@@ -76,6 +76,7 @@ MYMAP.placeMarkers = function() {
 					fillOpacity:1,
 					map: MYMAP.map
 				});
+				
 			})
 		})
 	$.getJSON( "/getcoords", { nat: 2, year: selectedYear, month: selectedMonth	} )

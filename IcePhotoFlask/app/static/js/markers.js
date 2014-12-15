@@ -64,15 +64,6 @@ MYMAP.init = function(selector, latLng, zoom) {
     },
     {
         "featureType": "administrative",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#898686"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative",
         "elementType": "geometry.fill",
         "stylers": [
             {
@@ -95,6 +86,9 @@ MYMAP.init = function(selector, latLng, zoom) {
             },
             {
                 "weight": 1.2
+            },
+            {
+                "visibility": "off"
             }
         ]
     },
@@ -104,24 +98,18 @@ MYMAP.init = function(selector, latLng, zoom) {
         "stylers": [
             {
                 "visibility": "off"
-            },
-            {
-                "weight": "0.41"
             }
         ]
     },
     {
         "featureType": "administrative.country",
-        "elementType": "all",
+        "elementType": "geometry",
         "stylers": [
             {
-                "visibility": "off"
+                "color": "#bd8383"
             },
             {
-                "saturation": "22"
-            },
-            {
-                "color": "#ababab"
+                "visibility": "on"
             }
         ]
     },
@@ -130,16 +118,7 @@ MYMAP.init = function(selector, latLng, zoom) {
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative.province",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
+                "color": "#685050"
             }
         ]
     },
@@ -148,7 +127,7 @@ MYMAP.init = function(selector, latLng, zoom) {
         "elementType": "all",
         "stylers": [
             {
-                "color": "#ff0000"
+                "color": "#a68585"
             }
         ]
     },
@@ -157,31 +136,34 @@ MYMAP.init = function(selector, latLng, zoom) {
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#111111"
+                "lightness": "20"
             },
             {
-                "lightness": 20
+                "visibility": "simplified"
+            },
+            {
+                "color": "#494949"
+            },
+            {
+                "weight": "1.00"
             }
         ]
     },
     {
-        "featureType": "landscape",
-        "elementType": "geometry.fill",
+        "featureType": "landscape.man_made",
+        "elementType": "geometry.stroke",
         "stylers": [
             {
-                "hue": "#ff0000"
+                "visibility": "on"
             }
         ]
     },
     {
         "featureType": "landscape.natural",
-        "elementType": "all",
+        "elementType": "geometry",
         "stylers": [
             {
-                "color": "#111111"
-            },
-            {
-                "lightness": "20"
+                "color": "#535353"
             }
         ]
     },
@@ -190,10 +172,7 @@ MYMAP.init = function(selector, latLng, zoom) {
         "elementType": "all",
         "stylers": [
             {
-                "lightness": "20"
-            },
-            {
-                "color": "#111111"
+                "visibility": "off"
             }
         ]
     },
@@ -210,11 +189,20 @@ MYMAP.init = function(selector, latLng, zoom) {
         ]
     },
     {
-        "featureType": "poi.park",
+        "featureType": "poi",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.attraction",
         "elementType": "all",
         "stylers": [
             {
-                "hue": "#ff0000"
+                "visibility": "off"
             }
         ]
     },
@@ -223,10 +211,37 @@ MYMAP.init = function(selector, latLng, zoom) {
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#111111"
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "visibility": "simplified"
             },
             {
-                "lightness": "20"
+                "color": "#a01b1b"
             }
         ]
     },
@@ -241,13 +256,28 @@ MYMAP.init = function(selector, latLng, zoom) {
     },
     {
         "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#dc9110"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#000000"
+                "color": "#b72222"
             },
             {
-                "lightness": 17
+                "lightness": "21"
+            },
+            {
+                "visibility": "off"
             }
         ]
     },
@@ -268,6 +298,15 @@ MYMAP.init = function(selector, latLng, zoom) {
     },
     {
         "featureType": "road.arterial",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
         "elementType": "geometry",
         "stylers": [
             {
@@ -275,6 +314,27 @@ MYMAP.init = function(selector, latLng, zoom) {
             },
             {
                 "lightness": 18
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
             }
         ]
     },
@@ -283,7 +343,7 @@ MYMAP.init = function(selector, latLng, zoom) {
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#000000"
+                "color": "#ababab"
             },
             {
                 "lightness": 16
@@ -292,13 +352,40 @@ MYMAP.init = function(selector, latLng, zoom) {
     },
     {
         "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#000000"
+                "color": "#afafaf"
             },
             {
                 "lightness": 19
+            }
+        ]
+    },
+    {
+        "featureType": "transit.line",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#40e5e3"
             }
         ]
     },
@@ -307,7 +394,7 @@ MYMAP.init = function(selector, latLng, zoom) {
         "elementType": "geometry",
         "stylers": [
             {
-                "color": "#406e88"
+                "color": "#b5deef"
             },
             {
                 "lightness": 17

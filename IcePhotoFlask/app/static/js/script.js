@@ -5,3 +5,5 @@ $("#menu-toggle").click(function(e) {
     $("#clear_sidebar").toggleClass("glyphicon glyphicon-chevron-right");
 });
 
+
+

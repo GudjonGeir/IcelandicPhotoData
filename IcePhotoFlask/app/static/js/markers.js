@@ -1,6 +1,7 @@
 $(document).ready(function() {
   var myLatLng = new google.maps.LatLng(64.965003, -18.872854);
   MYMAP.init('#googleMap', myLatLng, 7);
+  // MYMAP.init('#googleMap', myLatLng, 10);
   
   $("#showmarkers").click(function(e){
 		MYMAP.placeMarkers();
@@ -317,27 +318,59 @@ MYMAP.init = function(selector, latLng, zoom) {
 }
 
 MYMAP.placeMarkers = function() {
-	$.getJSON( "/getcoords/icelandic", function( data ) {
-		$.each( data, function( key, val ) {
-			var c = new google.maps.LatLng(parseFloat(val.lat),parseFloat(val.long));
-			console.log(val.lat);
-			var point = new google.maps.Circle({
-				center:c,
-				radius:150,
-				strokeColor:"#aaaaaa",
-				strokeOpacity:1,
-				strokeWeight:0.5,
-				fillColor:"#ffe400",
-				fillOpacity:1,
-				map: MYMAP.map
-			});
-			// var marker = new google.maps.Marker({
-			// 	position: c,
-			// 	map: MYMAP.map
-			// });
+	var selectedYear = $("input[name=year]:checked").val();
+	var selectedMonth = $("input[name=month]:checked").val();
+
+	$.getJSON( "/getcoords", { nat: 1, year: selectedYear, month: selectedMonth	} )
+		.done( function( data ) {
+			$.each( data, function( key, val ) {
+				var c = new google.maps.LatLng(parseFloat(val.lat),parseFloat(val.long));
+				var point = new google.maps.Circle({
+					center:c,
+					radius:100,
+					strokeColor:"#ff0000",
+					strokeOpacity:0.8,
+					strokeWeight:2,
+					fillColor:"#ff0000",
+					fillOpacity:1,
+					map: MYMAP.map
+				});
+			})
 		})
-	})
+	$.getJSON( "/getcoords", { nat: 2, year: selectedYear, month: selectedMonth	} )
+		.done( function( data ) {
+			$.each( data, function( key, val ) {
+				var c = new google.maps.LatLng(parseFloat(val.lat),parseFloat(val.long));
+				var point = new google.maps.Circle({
+					center:c,
+					radius:100,
+					strokeColor:"#0015ff",
+					strokeOpacity:0.8,
+					strokeWeight:2,
+					fillColor:"#0015ff",
+					fillOpacity:1,
+					map: MYMAP.map
+				});
+			})
+		})
+	$.getJSON( "/getcoords", { nat: 3, year: selectedYear, month: selectedMonth	} )
+		.done( function( data ) {
+			$.each( data, function( key, val ) {
+				var c = new google.maps.LatLng(parseFloat(val.lat),parseFloat(val.long));
+				var point = new google.maps.Circle({
+					center:c,
+					radius:100,
+					strokeColor:"#FFEA00",
+					strokeOpacity:0.8,
+					strokeWeight:2,
+					fillColor:"#FFEA00",
+					fillOpacity:1,
+					map: MYMAP.map
+				});
+			})
+		})
 }
+
 // 	$.get(filename, function(xml){
 // 		$(xml).find("marker").each(function(){
 // 			var name = $(this).find('name').text();

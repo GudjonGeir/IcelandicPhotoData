@@ -324,6 +324,7 @@ def getCountByYear():
 												WHERE pg.country IS NULL
 												OR pg.country = "")''', (str(year),))
 		unknownCount.append(cursor.fetchone()[0])
+	print type(iceCount[0])
 	result = {
 		'iceland': iceCount,
 		'foreign': foreignCount,

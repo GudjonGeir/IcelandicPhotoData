@@ -1,11 +1,12 @@
 $(document).ready(function() {
+	getCountByYear();
 	$(".getCount").click(function(e){
-		getCount($(this).attr('year'));
+		getCountByMonth($(this).attr('year'));
 	});
 });
 
-function getCount(clickedYear) {
-	$.getJSON( "/getcount", { nat: 1, year: clickedYear } )
+function getCountByMonth(clickedYear) {
+	$.getJSON( "/getcountbymonth", { nat: 1, year: clickedYear } )
 		.done(function( data ) {
 			$("#Jan1").html(data[0]);
 			$("#Feb1").html(data[1]);
@@ -20,7 +21,7 @@ function getCount(clickedYear) {
 			$("#Nov1").html(data[10]);
 			$("#Des1").html(data[11]);
 	});
-	$.getJSON( "/getcount", { nat: 2, year: clickedYear } )
+	$.getJSON( "/getcountbymonth", { nat: 2, year: clickedYear } )
 		.done(function( data ) {
 			$("#Jan2").html(data[0]);
 			$("#Feb2").html(data[1]);
@@ -35,7 +36,7 @@ function getCount(clickedYear) {
 			$("#Nov2").html(data[10]);
 			$("#Des2").html(data[11]);
 	});
-	$.getJSON( "/getcount", { nat: 3, year: clickedYear } )
+	$.getJSON( "/getcountbymonth", { nat: 3, year: clickedYear } )
 		.done(function( data ) {
 			$("#Jan3").html(data[0]);
 			$("#Feb3").html(data[1]);
@@ -53,10 +54,38 @@ function getCount(clickedYear) {
 }
 
 
+function getCountByYear() {
+	$.getJSON( "/getcountbyyear", {} )
+		.done(function( data ) {
+			$("#i2007").html(data.iceland[0]);
+			$("#i2008").html(data.iceland[1]);
+			$("#i2009").html(data.iceland[2]);
+			$("#i2010").html(data.iceland[3]);
+			$("#i2011").html(data.iceland[4]);
+			$("#i2012").html(data.iceland[5]);
+			$("#i2013").html(data.iceland[6]);
+			$("#i2014").html(data.iceland[7]);
 
+			$("#f2007").html(data.foreign[0]);
+			$("#f2008").html(data.foreign[1]);
+			$("#f2009").html(data.foreign[2]);
+			$("#f2010").html(data.foreign[3]);
+			$("#f2011").html(data.foreign[4]);
+			$("#f2012").html(data.foreign[5]);
+			$("#f2013").html(data.foreign[6]);
+			$("#f2014").html(data.foreign[7]);
 
+			$("#u2007").html(data.unknown[0]);
+			$("#u2008").html(data.unknown[1]);
+			$("#u2009").html(data.unknown[2]);
+			$("#u2010").html(data.unknown[3]);
+			$("#u2011").html(data.unknown[4]);
+			$("#u2012").html(data.unknown[5]);
+			$("#u2013").html(data.unknown[6]);
+			$("#u2014").html(data.unknown[7]);
 
-
+	});
+}
 
 
 

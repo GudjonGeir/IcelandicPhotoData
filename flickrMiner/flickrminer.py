@@ -1,6 +1,8 @@
 import requests
 import sqlite3
 import datetime
+import time
+import sys
 def isNoneOrEmptyOrBlankString (myString):
         if myString:
             if not myString.strip():
@@ -11,17 +13,20 @@ def isNoneOrEmptyOrBlankString (myString):
         return False
 
 
-def getPhotoData (page, dbcursor):
+def getPhotoData (page):
+	db = sqlite3.connect('flickr.sqlite')
+	dbcursor = db.cursor()
+
 	counter = 0
-	errorLog = open("log.txt", "a")
 	for p in page:
+		errorLog = open("log.txt", "a")
 		counter += 1
 		if counter % 25 == 0:
 			print "Photo " + str(counter)
 
 		photoid = p['id']
 		dbcursor.execute('''SELECT id FROM Photo WHERE id=?''', (photoid,))
-		if cursor.fetchone() is not None:
+		if dbcursor.fetchone() is not None:
 			#print "Photo exists, skipping. PhotoID: " + str(photoid)
 			continue
 
@@ -59,7 +64,7 @@ def getPhotoData (page, dbcursor):
 				"Camera field is empty, photdoid = " + str(photoid)
 		# Insert camera info if it's not present in table and it's not null
 		if camera is not None: 
-			cursor.execute('''SELECT name FROM Camera WHERE name=?''', (camera,))
+			dbcursor.execute('''SELECT name FROM Camera WHERE name=?''', (camera,))
 			if dbcursor.fetchone() is None:
 				dbcursor.execute('INSERT INTO Camera(name) VALUES(?)', (camera,))
 
@@ -76,20 +81,15 @@ def getPhotoData (page, dbcursor):
 		if dbcursor.fetchone() is None:
 			dbcursor.execute('INSERT INTO Photographer(photographer, country) VALUES(?, ?)', (photographer, ownerLocation))
 		errorLog.close()
-
-
-
-
-
-db = sqlite3.connect('flickr.sqlite')
-cursor = db.cursor()
+		db.commit()
+	db.close()
 
 
 maxdate = datetime.date(2014, 12, 10)
-while maxdate > datetime.date(2001, 01, 01):
-	dateLog = open("datelog.txt", "a")
-
+while maxdate > datetime.date(2009, 01, 01):
 	mindate = maxdate - datetime.timedelta(days=30)
+	if mindate < datetime.date(2009, 1, 1):
+		mindate = datetime.date(2009, 1, 1)
 	baseurl1 = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e2cc3f278fde020b3a1d4a720893caa9&min_upload_date='
 	baseurl2 = str(mindate) + '&max_upload_date=' + str(maxdate)
 	baseurl3 = '&place_id=jPn7LAVTUb5tyPnsog&per_page=500&format=json&nojsoncallback=1'
@@ -100,22 +100,30 @@ while maxdate > datetime.date(2001, 01, 01):
 
 	for page in range(1, totalPages + 1):
 		response = requests.get(baseurl1 + baseurl2 + baseurl4 + str(page) + baseurl3).json()
-		if response['stat'] != "ok":
+
+		timeoutcounter = 0
+		while response['stat'] != "ok":
+			timeoutcounter += 1
+			if timeoutcounter > 20:
+				print "Timed out"
+				sys.exit()
+
 			print response
+			time.sleep(5)
+			response = requests.get(baseurl1 + baseurl2 + baseurl4 + str(page) + baseurl3).json()
 		photosInPage = response['photos']['photo']
 
-		getPhotoData(photosInPage, cursor)
-
-		
+		getPhotoData(photosInPage)		
 			
 		print "Page " + str(page) + " of " + str(totalPages) +  ", " + str(mindate) + "  to  " + str(maxdate)
-		dateLog.write("maxdate = " + str(maxdate) + ", mindate = " + str(mindate))
-		datelog.close()
-		db.commit()
+		dateLog = open("datelog.txt", "a")
+		dateLog.write("maxdate = " + str(maxdate) + ", mindate = " + str(mindate) + "\n")
+		dateLog.close()
+		
 	
 	maxdate = mindate - datetime.timedelta(days=1)
 
 
-db.close()
+
 print "Finished"
 

@@ -10,7 +10,7 @@ var lineOptions = {
 	scaleShowGridLines : false,
 
 	//Boolean - Whether the line is curved between points
-	bezierCurve : false,
+	bezierCurve : true,
 
 	//Boolean - Whether to show a dot for each point
 	pointDot : true,
@@ -31,7 +31,7 @@ var lineOptions = {
 	datasetStrokeWidth : 2,
 
 	//Boolean - Whether to fill the dataset with a colour
-	datasetFill : false,
+	datasetFill : true,
 
 	//String - A legend template
 	legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><div style=\"color:<%=datasets[i].strokeColor%>\"><div></div><%if(datasets[i].label){%><%=datasets[i].label%><%}%></div><%}%></div>"
@@ -89,7 +89,7 @@ function getCountByMonth(clickedYear) {
 			datasets: [
 				{
 					label: "Icelandic",
-					fillColor: "rgba(220,220,220,0.2)",
+					fillColor: "rgba(75,254,201,0.5)",
 					strokeColor: "rgba(220,220,220,1)",
 					pointColor: "rgba(220,220,220,1)",
 					pointStrokeColor: "#fff",

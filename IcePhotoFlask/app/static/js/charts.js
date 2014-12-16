@@ -143,16 +143,6 @@ function getCountByMonth(clickedYear) {
 		labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 		datasets: [
 			{
-				label: "Icelandic",
-				fillColor: "rgba(151,253,253,0.4)",
-				strokeColor: "rgba(31,178,178,1)",
-				pointColor: "rgba(151,253,253,0.5)",
-				pointStrokeColor: "#fff",
-				pointHighlightFill: "#fff",
-				pointHighlightStroke: "rgba(31,178,178,1)",
-				data: byMonthLineChart[index].iceland
-			},
-			{
 				label: "Foreign",
 				fillColor: "rgba(254,101,101,0.4)",
 				strokeColor: "rgba(236,54,54,1)",
@@ -163,6 +153,16 @@ function getCountByMonth(clickedYear) {
 				data: byMonthLineChart[index].foreign
 			},
 			{
+				label: "Icelandic",
+				fillColor: "rgba(151,253,253,0.4)",
+				strokeColor: "rgba(31,178,178,1)",
+				pointColor: "rgba(151,253,253,0.5)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(31,178,178,1)",
+				data: byMonthLineChart[index].iceland
+			}/*,
+			{
 				label: "Unknown",
 				fillColor: "rgba(240,173,78,0.5)",
 				strokeColor: "rgba(151,187,205,1)",
@@ -171,7 +171,7 @@ function getCountByMonth(clickedYear) {
 				pointHighlightFill: "#fff",
 				pointHighlightStroke: "rgba(151,187,205,1)",
 				data: byMonthLineChart[index].unknown
-			}
+			}*/
 		]
 	};
 	byMonthChart = new Chart(byMonthChartElement).Line(data, lineOptions);

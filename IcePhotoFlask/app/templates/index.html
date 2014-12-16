@@ -1,24 +1,125 @@
 {% extends "base.html" %}
 {% block content %}
+	<style type="text/css">
+		.tg  {border-collapse:collapse;border-spacing:0;}
+		.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+		.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+	</style>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqtSgbv8FoYjkxLxWCy8UTHPWC3KViDbo"></script>
 	<script type="text/javascript" src="static/js/chartjs/Chart.js"></script>
 	<script type="text/javascript" src="static/js/charts.js"></script>
 	<script type="text/javascript" src="static/js/FTmarkers.js"></script>
 
+	                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-camera-retro fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">26</div>
+                                        <div>Pictures taken</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Icelanders</span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-camera-retro fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">12</div>
+                                        <div>Pictures taken</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Foreigners</span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-camera-retro fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">124</div>
+                                        <div>Pictures taken</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Unknown</span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-camera-retro fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">13</div>
+                                        <div>Pictures taken</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Total</span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./row -->
+	<div class="jumbotron col-lg-12">
+  		<h1 id="header" year="{{ body.year }}">{{ body.header }}</h1>
+		<div class="col-lg-6">
+			<h3>Number of photographs by Month</h3>
+			<span id="byMonthLegend"></span>
+			<canvas id="byMonth" height="350" width="700"></canvas>
+		</div>
+		<div class="col-lg-6">
+			<h3>Number of photographs by Year</h3>
+			<span id="byYearLegend"></span>
+			<canvas id="byYear" height="280" width="560"></canvas>
+		</div>
+
+
+		<!--<div id="byMonthLegend"></div>-->
+  		<!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>-->
+	</div>
+
 	<h1 id="header" year="{{ body.year }}">{{ body.header }}</h1>
 
-	<div id="googleMap" style="width:1100px;height:700px;"></div>
-
-	<h3>Number of photographs by Month</h3>
-	<canvas id="byMonth" width="800" height="400"></canvas>
-	<div id="byMonthLegend"></div>
-
-	<h3>Number of photographs by Year</h3>
-	<canvas id="byYear" width="800" height="400"></canvas>
-	<div id="byYearLegend"></div>
 
 	<h3>Pie chart</h3>
 	<canvas id="byYearPie" width="800" height="400"></canvas>
 	<div id="byYearPieLegend"></div>
-
 {% endblock %}

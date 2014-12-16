@@ -50,7 +50,10 @@ def fttestmap():
 def testcharts():
 	return render_template("testcharts.html",
 							title='Charts')
-
+@app.route('/graphs')
+def graphs():
+	return render_template("graphs.html",
+							title='Graphs')
 
 @app.route('/getcoords')
 def getcoords():

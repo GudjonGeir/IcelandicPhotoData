@@ -1,8 +1,11 @@
+body {
+	margin-top: 0 !important; 
+}
 #sidebar-wrapper {
 	background: #4c92cd !important;
 }
 
-#sidebar-wrapper ul li a{
+#sidebar-wrapper ul li a {
 	color: white;
 }
 
@@ -19,5 +22,29 @@ h6,
 .h4,
 .h5,
 .h6 {
-    font-family: "Ubuntu", Helvetica, Arial, sans-serif!important;
+	font-family: 'Quicksand', sans-serif !important;
+    /*font-family: "Ubuntu", Helvetica, Arial, sans-serif!important;*/
+}
+
+.sidebar-sub-list {
+	list-style: none;
+}
+
+.page-header{
+	color: #ffffff !important;
+	text-align: center;
+	border-bottom: none!important;
+	margin:6px 0px 20px 0px !important;
+}
+
+i.fa.fa-times.fa-3 {
+	color: #4C92CD;
+	display: inline;
+	float: left;
+	font-size: 30px;
+}
+
+h1#header {
+    text-align: center;
+    margin-bottom: 40px;
 }

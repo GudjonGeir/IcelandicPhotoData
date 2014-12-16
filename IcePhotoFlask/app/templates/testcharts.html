@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Number of photographs by Year</h3>
+	<style type="text/css">
+		.tg  {border-collapse:collapse;border-spacing:0;}
+		.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+		.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+	</style>
+	<script type="text/javascript" src="static/js/chartjs/Chart.js"></script>
+	<script type="text/javascript" src="static/js/charts.js"></script>
+
+
+	<canvas id="byYear" width="800" height="400"></canvas>
+	<div id="byYearLegend"></div>
+
+	<div style="display:inline"><input type="button" class="getCount" year="00" value="All" /></div>
+	<div style="display:inline"><input type="button" class="getCount" year="2014" value="2014" /></div>
+	<div style="display:inline"><input type="button" class="getCount" year="2013" value="2013" /></div>
+	<div style="display:inline"><input type="button" class="getCount" year="2012" value="2012" /></div>
+	<div style="display:inline"><input type="button" class="getCount" year="2011" value="2011" /></div>
+	<div style="display:inline"><input type="button" class="getCount" year="2010" value="2010" /></div>
+	<div style="display:inline"><input type="button" class="getCount" year="2009" value="2009" /></div>
+	<div style="display:inline"><input type="button" class="getCount" year="2008" value="2008" /></div>
+	<div style="display:inline"><input type="button" class="getCount" year="2007" value="2007" /></div>
+
+	<h3>Number of photographs by Month</h3>
+	<canvas id="byMonth" width="800" height="400"></canvas>
+	<div id="byMonthLegend"></div>
+
+	<!-- <table class="tg">
+  <tr>
+	<th></th>
+	<th>Jan</th>
+	<th>Feb</th>
+	<th>Mar</th>
+	<th>Apr</th>
+	<th>May</th>
+	<th>Jun</th>
+	<th>Jul</th>
+	<th>Aug</th>
+	<th>Sep</th>
+	<th>Oct</th>
+	<th>Nov</th>
+	<th>Des</th>
+  </tr>
+  <tr>
+	<td>Icelandic</td>
+	<td id="Jan1"></td>
+	<td id="Feb1"></td>
+	<td id="Mar1"></td>
+	<td id="Apr1"></td>
+	<td id="May1"></td>
+	<td id="Jun1"></td>
+	<td id="Jul1"></td>
+	<td id="Aug1"></td>
+	<td id="Sep1"></td>
+	<td id="Oct1"></td>
+	<td id="Nov1"></td>
+	<td id="Des1"></td>
+  </tr>
+  <tr>
+	<td>Foreign</td>
+	<td id="Jan2"></td>
+	<td id="Feb2"></td>
+	<td id="Mar2"></td>
+	<td id="Apr2"></td>
+	<td id="May2"></td>
+	<td id="Jun2"></td>
+	<td id="Jul2"></td>
+	<td id="Aug2"></td>
+	<td id="Sep2"></td>
+	<td id="Oct2"></td>
+	<td id="Nov2"></td>
+	<td id="Des2"></td>
+  </tr>
+  <tr>
+	<td>Unknown</td>
+	<td id="Jan3"></td>
+	<td id="Feb3"></td>
+	<td id="Mar3"></td>
+	<td id="Apr3"></td>
+	<td id="May3"></td>
+	<td id="Jun3"></td>
+	<td id="Jul3"></td>
+	<td id="Aug3"></td>
+	<td id="Sep3"></td>
+	<td id="Oct3"></td>
+	<td id="Nov3"></td>
+	<td id="Des3"></td>
+  </tr>
+</table>
+
+<h3>Number of photographs by year</h3>
+<table class="tg">
+  <tr>
+    <th></th>
+    <th>2007</th>
+    <th>2008</th>
+    <th>2009</th>
+    <th>2010</th>
+    <th>2011</th>
+    <th>2012</th>
+    <th>2013</th>
+    <th>2014</th>
+  </tr>
+  <tr>
+    <td>Icelandic</td>
+    <td id="i2007"></td>
+    <td id="i2008"></td>
+    <td id="i2009"></td>
+    <td id="i2010"></td>
+    <td id="i2011"></td>
+    <td id="i2012"></td>
+    <td id="i2013"></td>
+    <td id="i2014"></td>
+  </tr>
+  <tr>
+    <td>Foreign</td>
+    <td id="f2007"></td>
+    <td id="f2008"></td>
+    <td id="f2009"></td>
+    <td id="f2010"></td>
+    <td id="f2011"></td>
+    <td id="f2012"></td>
+    <td id="f2013"></td>
+    <td id="f2014"></td>
+  </tr>
+  <tr>
+    <td>Unknown</td>
+    <td id="u2007"></td>
+    <td id="u2008"></td>
+    <td id="u2009"></td>
+    <td id="u2010"></td>
+    <td id="u2011"></td>
+    <td id="u2012"></td>
+    <td id="u2013"></td>
+    <td id="u2014"></td>
+  </tr>
+</table> -->
+	
+{% endblock %}

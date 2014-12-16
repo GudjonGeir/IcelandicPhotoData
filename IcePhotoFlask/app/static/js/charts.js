@@ -2,8 +2,10 @@ var byMonthChartElement;
 var byMonthChart;
 var byYearChartElement;
 var byYearChart;
+var byYearPieChartElement;
+var byYearPieChart;
 
-var options = {
+var lineOptions = {
 	///Boolean - Whether grid lines are shown across the chart
 	scaleShowGridLines : false,
 
@@ -35,12 +37,44 @@ var options = {
 	legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><span style=\"color:<%=datasets[i].strokeColor%>\"><span></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%></span>"
 }
 
+var pieOptions = {
+    //Boolean - Whether we should show a stroke on each segment
+    segmentShowStroke : true,
+
+    //String - The colour of each segment stroke
+    segmentStrokeColor : "#fff",
+
+    //Number - The width of each segment stroke
+    segmentStrokeWidth : 2,
+
+    //Number - The percentage of the chart that we cut out of the middle
+    percentageInnerCutout : 0, // This is 0 for Pie charts
+
+    //Number - Amount of animation steps
+    animationSteps : 100,
+
+    //String - Animation easing effect
+    animationEasing : "easeOutBounce",
+
+    //Boolean - Whether we animate the rotation of the Doughnut
+    animateRotate : true,
+
+    //Boolean - Whether we animate scaling the Doughnut from the centre
+    animateScale : false,
+
+    //String - A legend template
+    legendTemplate :"<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><div style=\"color:<%=segments[i].fillColor%>\"><div></div><%if(segments[i].label){%><%=segments[i].label%><%}%></div><%}%></div>"
+
+}
+
 $(document).ready(function() {
 	byMonthChartElement = document.getElementById("byMonth").getContext("2d");
 	byYearChartElement = document.getElementById("byYear").getContext("2d");
+	byYearPieChartElement = document.getElementById("byYearPie").getContext("2d");
 
 	getCountByMonth($("#header").attr('year'));
 	getCountByYear();
+	getPieCounts($("#header").attr('year'));
 });
 
 
@@ -90,12 +124,9 @@ function getCountByMonth(clickedYear) {
 			$("#byMonth").attr('width', '800');
 			$("#byMonth").attr('height', '400');
 		};
-		byMonthChart = new Chart(byMonthChartElement).Line(data, options);
+		byMonthChart = new Chart(byMonthChartElement).Line(data, lineOptions);
 		$("#byMonthLegend").html(byMonthChart.generateLegend());
-	});
-
-
-	
+	});	
 }
 
 
@@ -138,36 +169,37 @@ function getCountByYear() {
 				]
 			};
 
-		byYearChart = new Chart(byYearChartElement).Line(data, options);
+		byYearChart = new Chart(byYearChartElement).Line(data, lineOptions);
 		$("#byYearLegend").html(byYearChart.generateLegend());
+	});
+}
 
-			// $("#i2007").html(data.iceland[0]);
-			// $("#i2008").html(data.iceland[1]);
-			// $("#i2009").html(data.iceland[2]);
-			// $("#i2010").html(data.iceland[3]);
-			// $("#i2011").html(data.iceland[4]);
-			// $("#i2012").html(data.iceland[5]);
-			// $("#i2013").html(data.iceland[6]);
-			// $("#i2014").html(data.iceland[7]);
+function getPieCounts(clickedYear) {
+	$.getJSON( "/getcountbyyear", { year: clickedYear} )
+		.done(function( result ) {
+			var data = [
+			    {
+			        value: result.iceland[0],
+			        color:"#F7464A",
+			        highlight: "#FF5A5E",
+			        label: "Icelandic"
+			    },
+			    {
+			        value: result.foreign[0],
+			        color: "#46BFBD",
+			        highlight: "#5AD3D1",
+			        label: "Foreign"
+			    },
+			    {
+			        value: result.unknown[0],
+			        color: "#FDB45C",
+			        highlight: "#FFC870",
+			        label: "Unknown"
+			    }
+			];
 
-			// $("#f2007").html(data.foreign[0]);
-			// $("#f2008").html(data.foreign[1]);
-			// $("#f2009").html(data.foreign[2]);
-			// $("#f2010").html(data.foreign[3]);
-			// $("#f2011").html(data.foreign[4]);
-			// $("#f2012").html(data.foreign[5]);
-			// $("#f2013").html(data.foreign[6]);
-			// $("#f2014").html(data.foreign[7]);
-
-			// $("#u2007").html(data.unknown[0]);
-			// $("#u2008").html(data.unknown[1]);
-			// $("#u2009").html(data.unknown[2]);
-			// $("#u2010").html(data.unknown[3]);
-			// $("#u2011").html(data.unknown[4]);
-			// $("#u2012").html(data.unknown[5]);
-			// $("#u2013").html(data.unknown[6]);
-			// $("#u2014").html(data.unknown[7]);
-
+		byYearPieChart = new Chart(byYearPieChartElement).Pie(data, pieOptions);
+		$("#byYearPieLegend").html(byYearPieChart.generateLegend());
 	});
 }
 

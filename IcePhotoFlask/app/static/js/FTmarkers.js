@@ -1,21 +1,21 @@
 var map, layer;
 
-// var 2014id = 
-// var 2013id = 
-// var 2012id = 
-// var 2011id = 
-// var 2010id = 
-// var 2009id = 
+var id2014 = '1EFNyT0DhEpO852m6d1ulyrV9FWz6QHupE6eqSKE9';
+var id2013 = '1bjdFPV9EKvNJeAFiZaj-EF8HQOn2HtWZln4MwMoz';
+var id2012 = '1A1bcSWqMO7xLDssnQWudsVNvWXXLGKoF8haBhYED';
+var id2011 = '1IXWSYzCKzqqBuPsW3Unrq5iGsx2y03C889DNDCOt';
+var id2010 = '1BW2DBPXNaYKB-NPiCLEzesBfURcMl5ef9kLrk3_x';
+var id2009 = '14fN9oSI49A8W5r1hbeiGirg4izEXkNQSJ5G5J45u';
 
 
 
 function initialize() {
-
+	var year = $("#header").attr('year');
 	var iceland = new google.maps.LatLng(64.965003, -18.872854);
 
 	map = new google.maps.Map(document.getElementById('googleMap'), {
 		center: iceland,
-		zoom: 10
+		zoom: 7
 	});
 	map.set('styles', [
     {
@@ -226,15 +226,37 @@ function initialize() {
         ]
     }
 ]);
+	if (year == "00") {
+		for (var i = 2009; i < 2015; i++) {
+			addLayer(i.toString(), map);
+			console.log(i.toString());
+		};
+	} else {
+		addLayer(year, map);
+		console.log(year);
+	}
+}
 
+function addLayer(year, map) {
 	layer = new google.maps.FusionTablesLayer({
 		query: {
 			select: 'lat',
-			from: '1VczzT_eumOE9HIHBJlA-gmzqTgxKF8NYCpm6r4IP'
+			from: 'id' + year
 		},
 		styles: [{
+			where: 'nat = 1',
+			markerOptions: {
+				iconName: "measle_turquoise"
+			}
+		}, {
+			where: 'nat = 2',
 			markerOptions: {
 				iconName: "small_red"
+			}
+		}, {
+			where: 'nat = 3',
+			markerOptions: {
+				iconName: "small_yellow"
 			}
 		}]
 	});

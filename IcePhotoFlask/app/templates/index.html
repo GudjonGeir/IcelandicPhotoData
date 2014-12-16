@@ -20,14 +20,14 @@
                                         <i class="fa fa-camera-retro fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">26</div>
+                                        <div id="Icelanders_count" class="huge"></div>
                                         <div>Pictures taken</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="#">
                                 <div class="panel-footer">
-                                    <span class="pull-left">Icelanders</span>
+                                    <span class="pull-left" id="icelanders_text">Icelanders</span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
@@ -41,14 +41,14 @@
                                         <i class="fa fa-camera-retro fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
+                                        <div id="Foreigners_count"class="huge"></div>
                                         <div>Pictures taken</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="#">
                                 <div class="panel-footer">
-                                    <span class="pull-left">Foreigners</span>
+                                    <span class="pull-left" id="foreigner_text">Foreigners</span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
@@ -62,14 +62,14 @@
                                         <i class="fa fa-camera-retro fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">124</div>
+                                        <div id="Unknown_count" class="huge"></div>
                                         <div>Pictures taken</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="#">
                                 <div class="panel-footer">
-                                    <span class="pull-left">Unknown</span>
+                                    <span class="pull-left"id="unknown_text">Unknown</span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
@@ -83,7 +83,7 @@
                                         <i class="fa fa-camera-retro fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div>
+                                        <div id="Total_count"class="huge"></div>
                                         <div>Pictures taken</div>
                                     </div>
                                 </div>
@@ -103,23 +103,21 @@
 		<div class="col-lg-6">
 			<h3>Number of photographs by Month</h3>
 			<span id="byMonthLegend"></span>
-			<canvas id="byMonth" height="350" width="700"></canvas>
+			<canvas id="byMonth" height="400" width="800"></canvas>
 		</div>
 		<div class="col-lg-6">
 			<h3>Number of photographs by Year</h3>
 			<span id="byYearLegend"></span>
-			<canvas id="byYear" height="280" width="560"></canvas>
+			<canvas id="byYearPie" width="800" height="400"></canvas>
 		</div>
-
-
-		<!--<div id="byMonthLegend"></div>-->
-  		<!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>-->
 	</div>
 
-	<h1 id="header" year="{{ body.year }}">{{ body.header }}</h1>
-
-
-	<h3>Pie chart</h3>
-	<canvas id="byYearPie" width="800" height="400"></canvas>
-	<div id="byYearPieLegend"></div>
+	<div class="jumbotron col-lg-12">
+    	<div id="googleMap" style="width:100%;height:600px"></div>
+    </div>
+	<div class=" jumbotron col-lg-12">
+		<h3>Pie chart</h3>
+		<canvas id="byYear" height="500" width="1200"></canvas>
+		<div id="byYearPieLegend"></div>
+	</div>
 {% endblock %}

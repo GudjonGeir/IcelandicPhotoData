@@ -63,8 +63,8 @@ var pieOptions = {
     animateScale : false,
 
     //String - A legend template
-    legendTemplate :"<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><div style=\"color:<%=segments[i].fillColor%>\"><div></div><%if(segments[i].label){%><%=segments[i].label%><%}%></div><%}%></div>"
-
+    //legendTemplate :"<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><div style=\"color:<%=segments[i].fillColor%>\"><div></div><%if(segments[i].label){%><%=segments[i].label%><%}%></div><%}%></div>"
+    legendTemplate :"<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 }
 
 $(document).ready(function() {
@@ -89,24 +89,24 @@ function getCountByMonth(clickedYear) {
 			datasets: [
 				{
 					label: "Icelandic",
-					fillColor: "rgba(51,122,183,0.5)",
-					strokeColor: "rgba(220,220,220,1)",
-					pointColor: "rgba(220,220,220,1)",
+					fillColor: "rgba(151,253,253,0.4)",
+					strokeColor: "rgba(31,178,178,1)",
+					pointColor: "rgba(151,253,253,0.5)",
 					pointStrokeColor: "#fff",
 					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(220,220,220,1)",
+					pointHighlightStroke: "rgba(31,178,178,1)",
 					data: result.iceland
 				},
 				{
 					label: "Foreign",
-					fillColor: "rgba(92,184,94,0.5)",
-					strokeColor: "rgba(151,187,205,1)",
-					pointColor: "rgba(151,187,205,1)",
+					fillColor: "rgba(254,101,101,0.4)",
+					strokeColor: "rgba(236,54,54,1)",
+					pointColor: "rgba(254,101,101,0.5)",
 					pointStrokeColor: "#fff",
 					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(151,187,205,1)",
+					pointHighlightStroke: "rgba(236,54,54,1)",
 					data: result.foreign
-				},
+				}/*,
 				{
 					label: "Unknown",
 					fillColor: "rgba(240,173,78,0.5)",
@@ -116,7 +116,7 @@ function getCountByMonth(clickedYear) {
 					pointHighlightFill: "#fff",
 					pointHighlightStroke: "rgba(151,187,205,1)",
 					data: result.unknown
-				}
+				}*/
 			]
 		};
 		if (byMonthChart) {
@@ -138,7 +138,7 @@ function getCountByYear() {
 				datasets: [
 					{
 						label: "Icelandic",
-						fillColor: "rgba(51,122,183,0.8)",
+						fillColor: "rgba(151,253,253,0.8)",
 						strokeColor: "rgba(220,220,220,1)",
 						pointColor: "rgba(220,220,220,1)",
 						pointStrokeColor: "#fff",
@@ -177,23 +177,31 @@ function getCountByYear() {
 function getPieCounts(clickedYear) {
 	$.getJSON( "/getcountbyyear", { year: clickedYear} )
 		.done(function( result ) {
+			var ice_cnt = parseInt(result.iceland[0]);
+			var for_cnt = parseInt(result.foreign[0]);
+			var unk_cnt = parseInt(result.unknown[0]);
+			var tot_cnt = ice_cnt + for_cnt + unk_cnt;
+			$("#Icelanders_count").html(ice_cnt);
+			$("#Foreigners_count").html(for_cnt);
+			$("#Unknown_count").html(unk_cnt);
+			$("#Total_count").html(tot_cnt);
 			var data = [
 			    {
 			        value: result.iceland[0],
-			        color:"#F7464A",
-			        highlight: "#FF5A5E",
-			        label: "Icelandic"
+			        color:"#97fdfd",
+			        highlight: "#4cfcfc",
+			        label: "Icelanders"
 			    },
 			    {
 			        value: result.foreign[0],
-			        color: "#46BFBD",
-			        highlight: "#5AD3D1",
-			        label: "Foreign"
+			        color: "#fe6565",
+			        highlight: "#fd5858",
+			        label: "Foreigners"
 			    },
 			    {
 			        value: result.unknown[0],
-			        color: "#FDB45C",
-			        highlight: "#FFC870",
+			        color: "#fbff99",
+			        highlight: "#f9ff66",
 			        label: "Unknown"
 			    }
 			];

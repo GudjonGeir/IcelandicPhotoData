@@ -1,11 +1,11 @@
 var map, layer;
 
-var id2014 = '1EFNyT0DhEpO852m6d1ulyrV9FWz6QHupE6eqSKE9';
-var id2013 = '1bjdFPV9EKvNJeAFiZaj-EF8HQOn2HtWZln4MwMoz';
-var id2012 = '1A1bcSWqMO7xLDssnQWudsVNvWXXLGKoF8haBhYED';
-var id2011 = '1IXWSYzCKzqqBuPsW3Unrq5iGsx2y03C889DNDCOt';
-var id2010 = '1BW2DBPXNaYKB-NPiCLEzesBfURcMl5ef9kLrk3_x';
-var id2009 = '14fN9oSI49A8W5r1hbeiGirg4izEXkNQSJ5G5J45u';
+var mapIds = [ '1ceNRCGP68VNVBhyII3Hl_cl2GZ0QkQdYxCuWCDu8',			// 2009
+				'1ATlEA8QZATnjlx2XJZ_mGtstWEOKSIOSx20RhgXa',		// 2010
+				'1A2M-KmL9Uk1uazOXNZqHI0PXrawBftVx1Cg1NMFe',		// 2011
+				'1jdMUsqhaGRjEKD5YqPn_EbHwxAumjoi27stYqEQY',		// 2012
+				'1C8bhgk_6hgaDwDvju3dT_artVl0WjzIoNo91cI9q',		// 2013
+				'1ixS25C61lip5z-ILINGpsllo1j8yhj2a-1Uh9xxl' ];		// 2014
 
 
 
@@ -238,10 +238,11 @@ function initialize() {
 }
 
 function addLayer(year, map) {
+	var mapid = mapIds[year-2009]
 	layer = new google.maps.FusionTablesLayer({
 		query: {
 			select: 'lat',
-			from: 'id' + year
+			from: mapid
 		},
 		styles: [{
 			where: 'nat = 1',

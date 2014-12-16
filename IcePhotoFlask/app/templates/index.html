@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-
-	<style type="text/css">
-		.tg  {border-collapse:collapse;border-spacing:0;}
-		.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-		.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-	</style>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqtSgbv8FoYjkxLxWCy8UTHPWC3KViDbo"></script>
 	<script type="text/javascript" src="static/js/chartjs/Chart.js"></script>
 	<script type="text/javascript" src="static/js/charts.js"></script>
+	<script type="text/javascript" src="static/js/FTmarkers.js"></script>
 
 	<h1 id="header" year="{{ body.year }}">{{ body.header }}</h1>
+
+	<div id="googleMap" style="width:1100px;height:700px;"></div>
 
 	<h3>Number of photographs by Month</h3>
 	<canvas id="byMonth" width="800" height="400"></canvas>
@@ -18,5 +16,9 @@
 	<h3>Number of photographs by Year</h3>
 	<canvas id="byYear" width="800" height="400"></canvas>
 	<div id="byYearLegend"></div>
-	
+
+	<h3>Pie chart</h3>
+	<canvas id="byYearPie" width="800" height="400"></canvas>
+	<div id="byYearPieLegend"></div>
+
 {% endblock %}

@@ -300,12 +300,52 @@ def getCountByMonth():
 
 @app.route('/getcountbyyear')
 def getCountByYear():
-	# if nationality == "1":
 	iceCount = []
 	foreignCount = []
 	unknownCount = []
+	minYear = 2009
+	maxYear = 2015
 
-	for year in xrange(2009, 2015):
+	argYear = request.args.get('year')
+	if argYear is not None:
+		if argYear == "00":
+			cursor.execute('''SELECT COUNT(*)
+								FROM Photo p
+								WHERE latitude IS NOT NULL
+								AND longitude IS NOT NULL
+								AND p.photographer IN(SELECT photographer
+														FROM Photographer pg
+														WHERE pg.country LIKE '%Iceland%')''')
+			iceCount.append(cursor.fetchone()[0])
+			cursor.execute('''SELECT COUNT(*)
+							FROM Photo p, Photographer pg
+							WHERE p.photographer = pg.photographer
+							AND latitude IS NOT NULL
+							AND longitude IS NOT NULL
+							AND pg.country IS NOT NULL
+							AND pg.country <> ""
+							AND pg.country NOT LIKE "%Iceland%"''')
+			foreignCount.append(cursor.fetchone()[0])
+			cursor.execute('''SELECT COUNT(*)
+								FROM Photo p
+								WHERE latitude IS NOT NULL
+								AND longitude IS NOT NULL
+								AND p.photographer IN(SELECT photographer
+													FROM Photographer pg
+													WHERE pg.country IS NULL
+													OR pg.country = "")''')
+			unknownCount.append(cursor.fetchone()[0])
+			result = {
+				'iceland': iceCount,
+				'foreign': foreignCount,
+				'unknown': unknownCount
+			}
+			return json.dumps(result).decode('utf-8')
+		else:
+			minYear = int(argYear)
+			maxYear = minYear + 1
+
+	for year in xrange(minYear, maxYear):
 		cursor.execute('''SELECT COUNT(*)
 							FROM Photo p
 							WHERE latitude IS NOT NULL
@@ -315,7 +355,6 @@ def getCountByYear():
 													FROM Photographer pg
 													WHERE pg.country LIKE '%Iceland%')''', (str(year),))
 		iceCount.append(cursor.fetchone()[0])
-	# elif nationality == "2":
 		cursor.execute('''SELECT COUNT(*)
 						FROM Photo p, Photographer pg
 						WHERE p.photographer = pg.photographer
@@ -326,7 +365,6 @@ def getCountByYear():
 						AND pg.country <> ""
 						AND pg.country NOT LIKE "%Iceland%"''', (str(year),))
 		foreignCount.append(cursor.fetchone()[0])
-	# elif nationality == "3":
 		cursor.execute('''SELECT COUNT(*)
 							FROM Photo p
 							WHERE latitude IS NOT NULL

@@ -41,6 +41,11 @@ def testmap():
 	return render_template("testmap.html",
 							title='Map')
 
+@app.route('/fttestmap')
+def fttestmap():
+	return render_template("FTtestmap.html",
+							title='Map')
+
 @app.route('/testcharts')
 def testcharts():
 	return render_template("testcharts.html",
@@ -319,6 +324,7 @@ def getCountByYear():
 												WHERE pg.country IS NULL
 												OR pg.country = "")''', (str(year),))
 		unknownCount.append(cursor.fetchone()[0])
+	print type(iceCount[0])
 	result = {
 		'iceland': iceCount,
 		'foreign': foreignCount,

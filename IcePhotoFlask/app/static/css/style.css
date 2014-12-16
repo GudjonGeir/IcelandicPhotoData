@@ -48,3 +48,56 @@ h1#header {
     text-align: center;
     margin-bottom: 40px;
 }
+
+span.pull-left {
+	font-size: x-large;
+	font-weight: 600;
+}
+
+.panel-primary {
+	border-color: #5fdbdb !important;
+}
+
+.panel-primary>.panel-heading {
+	color: #FFF;
+	background-color: #5fdbdb !important;
+	border-color: #5fdbdb !important;
+}
+
+#icelanders_text {
+	color: #5fdbdb !important;
+}
+.panel-green {
+	border-color: #fe6565 !important;
+}
+.panel-green .panel-heading{
+	border-color: #fe6565 !important;
+	color: #fff;
+	background-color: #fe6565 !important;
+}
+
+#foreigner_text{
+	color:#fe6565 !important;
+}
+
+.panel-yellow{
+	border-color: #feff99 !important;
+}
+
+.panel-yellow .panel-heading {
+	border-color: #feff99 !important;
+	color: #fff;
+	background-color: #f5e857 !important;
+}
+
+#unknown_text {
+	color:#f5e857 !important;
+}
+
+.line-legend {
+	font-size: x-large;
+	font-weight: 500;
+	margin: 0px 15px 20px 0px;
+}
+
+

@@ -114,8 +114,8 @@ var pieOptions = {
     animateScale : false,
 
     //String - A legend template
-    legendTemplate :"<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><div style=\"color:<%=segments[i].fillColor%>\"><div></div><%if(segments[i].label){%><%=segments[i].label%><%}%></div><%}%></div>"
-
+    //legendTemplate :"<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><div style=\"color:<%=segments[i].fillColor%>\"><div></div><%if(segments[i].label){%><%=segments[i].label%><%}%></div><%}%></div>"
+    legendTemplate :"<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 }
 
 $(document).ready(function() {
@@ -144,22 +144,22 @@ function getCountByMonth(clickedYear) {
 		datasets: [
 			{
 				label: "Icelandic",
-				fillColor: "rgba(51,122,183,0.5)",
-				strokeColor: "rgba(220,220,220,1)",
-				pointColor: "rgba(220,220,220,1)",
+				fillColor: "rgba(151,253,253,0.4)",
+				strokeColor: "rgba(31,178,178,1)",
+				pointColor: "rgba(151,253,253,0.5)",
 				pointStrokeColor: "#fff",
 				pointHighlightFill: "#fff",
-				pointHighlightStroke: "rgba(220,220,220,1)",
+				pointHighlightStroke: "rgba(31,178,178,1)",
 				data: byMonthLineChart[index].iceland
 			},
 			{
 				label: "Foreign",
-				fillColor: "rgba(92,184,94,0.5)",
-				strokeColor: "rgba(151,187,205,1)",
-				pointColor: "rgba(151,187,205,1)",
+				fillColor: "rgba(254,101,101,0.4)",
+				strokeColor: "rgba(236,54,54,1)",
+				pointColor: "rgba(254,101,101,0.5)",
 				pointStrokeColor: "#fff",
 				pointHighlightFill: "#fff",
-				pointHighlightStroke: "rgba(151,187,205,1)",
+				pointHighlightStroke: "rgba(236,54,54,1)",
 				data: byMonthLineChart[index].foreign
 			},
 			{

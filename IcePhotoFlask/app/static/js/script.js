@@ -1,9 +1,17 @@
-$("#menu-toggle").click(function(e) {
+$(document).ready(function() {
+	$("#wrapper").toggleClass("toggled");
+});
+$( document ).on( "mousemove", function( event ) {
+	if(event.pageX < 10){
+		console.log(event.pageX);
+		$("#wrapper").toggleClass("toggled");
+	}
+});
+$("#menu-toggle").on('click',function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
-    $("#clear_sidebar").removeClass();
-    $("#clear_sidebar").toggleClass("glyphicon glyphicon-chevron-right");
 });
+
 
 
 

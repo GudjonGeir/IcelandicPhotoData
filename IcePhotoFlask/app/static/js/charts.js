@@ -29,19 +29,18 @@ var options = {
 	datasetStrokeWidth : 2,
 
 	//Boolean - Whether to fill the dataset with a colour
-	datasetFill : true,
+	datasetFill : false,
 
 	//String - A legend template
 	legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><div style=\"color:<%=datasets[i].strokeColor%>\"><div></div><%if(datasets[i].label){%><%=datasets[i].label%><%}%></div><%}%></div>"
 }
 
 $(document).ready(function() {
-	getCountByYear();
-	$(".getCount").click(function(e){
-		getCountByMonth($(this).attr('year'));
-	});
 	byMonthChartElement = document.getElementById("byMonth").getContext("2d");
 	byYearChartElement = document.getElementById("byYear").getContext("2d");
+
+	getCountByMonth($("#header").attr('year'));
+	getCountByYear();
 });
 
 

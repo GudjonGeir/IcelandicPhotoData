@@ -12,21 +12,21 @@ cursor = db.cursor()
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'nickname': 'Miguel'}  # fake user
-    posts = [  # fake array of posts
-        { 
-            'author': {'nickname': 'John'}, 
-            'body': 'Beautiful day in Portland!' 
-        },
-        { 
-            'author': {'nickname': 'Susan'}, 
-            'body': 'The Avengers movie was so cool!' 
-        }
-    ]
-    return render_template("index.html",
-                           title='Home',
-                           user=user,
-                           posts=posts)
+	year = request.args.get('year')
+	if year is None:
+		header = "Overall data from 2009-2014"
+		year = "00"
+	else:
+		header = "Data from the year " + year
+
+	body = {
+		'header': header,
+		'year': year
+	}  
+
+	return render_template("index.html",
+							title='Home',
+							body=body)
 @app.route('/test')
 def test():
 	cursor.execute('''SELECT type FROM CameraType''')

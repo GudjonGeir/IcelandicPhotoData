@@ -115,7 +115,7 @@ var pieOptions = {
 
     //String - A legend template
     //legendTemplate :"<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><div style=\"color:<%=segments[i].fillColor%>\"><div></div><%if(segments[i].label){%><%=segments[i].label%><%}%></div><%}%></div>"
-    legendTemplate :"<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+    legendTemplate :"<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].lineColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
 }
 
 $(document).ready(function() {

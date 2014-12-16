@@ -249,6 +249,11 @@ function getPieCounts(clickedYear) {
 	    }
 	];
 
+	$("#Icelanders_count").html(pieChart[index].iceland);
+	$("#Foreigners_count").html(pieChart[index].foreign);
+	$("#Unknown_count").html(pieChart[index].unknown);
+	$("#Total_count").html(pieChart[index].iceland + pieChart[index].foreign + pieChart[index].unknown);
+
 	byYearPieChart = new Chart(byYearPieChartElement).Pie(data, pieOptions);
 	$("#byYearPieLegend").html(byYearPieChart.generateLegend());
 }

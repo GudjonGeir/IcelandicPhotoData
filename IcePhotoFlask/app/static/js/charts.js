@@ -32,7 +32,7 @@ var options = {
 	datasetFill : true,
 
 	//String - A legend template
-	legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><div style=\"color:<%=datasets[i].strokeColor%>\"><div></div><%if(datasets[i].label){%><%=datasets[i].label%><%}%></div><%}%></div>"
+	legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><span style=\"color:<%=datasets[i].strokeColor%>\"><span></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%></span>"
 }
 
 $(document).ready(function() {
@@ -55,7 +55,7 @@ function getCountByMonth(clickedYear) {
 			datasets: [
 				{
 					label: "Icelandic",
-					fillColor: "rgba(75,254,201,0.5)",
+					fillColor: "rgba(51,122,183,0.5)",
 					strokeColor: "rgba(220,220,220,1)",
 					pointColor: "rgba(220,220,220,1)",
 					pointStrokeColor: "#fff",
@@ -65,7 +65,7 @@ function getCountByMonth(clickedYear) {
 				},
 				{
 					label: "Foreign",
-					fillColor: "rgba(151,187,205,0.2)",
+					fillColor: "rgba(92,184,94,0.5)",
 					strokeColor: "rgba(151,187,205,1)",
 					pointColor: "rgba(151,187,205,1)",
 					pointStrokeColor: "#fff",
@@ -75,7 +75,7 @@ function getCountByMonth(clickedYear) {
 				},
 				{
 					label: "Unknown",
-					fillColor: "rgba(151,187,205,0.2)",
+					fillColor: "rgba(240,173,78,0.5)",
 					strokeColor: "rgba(151,187,205,1)",
 					pointColor: "rgba(151,187,205,1)",
 					pointStrokeColor: "#fff",
@@ -107,7 +107,7 @@ function getCountByYear() {
 				datasets: [
 					{
 						label: "Icelandic",
-						fillColor: "rgba(220,220,220,0.2)",
+						fillColor: "rgba(51,122,183,0.8)",
 						strokeColor: "rgba(220,220,220,1)",
 						pointColor: "rgba(220,220,220,1)",
 						pointStrokeColor: "#fff",
@@ -117,7 +117,7 @@ function getCountByYear() {
 					},
 					{
 						label: "Foreign",
-						fillColor: "rgba(151,187,205,0.2)",
+						fillColor: "rgba(92,184,94,0.8)",
 						strokeColor: "rgba(151,187,205,1)",
 						pointColor: "rgba(151,187,205,1)",
 						pointStrokeColor: "#fff",
@@ -127,7 +127,7 @@ function getCountByYear() {
 					},
 					{
 						label: "Unknown",
-						fillColor: "rgba(151,187,205,0.2)",
+						fillColor: "rgba(240,173,78,0.8)",
 						strokeColor: "rgba(151,187,205,1)",
 						pointColor: "rgba(151,187,205,1)",
 						pointStrokeColor: "#fff",

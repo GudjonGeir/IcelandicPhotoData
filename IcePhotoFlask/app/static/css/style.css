@@ -7,8 +7,12 @@ body {
 
 i.fa.fa-bars.fa-5 {
 	font-size: xx-large;
-	color: #404040;
+	color: #ffffff;
 	margin-top: 10px;
+}
+
+i.fa.fa-bars.fa-5:hover{
+	color: #404040;
 }
 
 #sidebar-wrapper ul li a {
@@ -124,16 +128,23 @@ span.pull-left {
 
 .line-legend {
 	font-size: x-large;
-	font-weight: 500;
+	font-weight: 400;
 	margin: 0px 15px 20px 0px;
+	text-align: center;
 }
 .line-legend span{
 	margin-right: 10px;
+	font-weight: 600;
 }
 
 .icon_legend {
 	font-size: larger;
 	font-weight: 600;
 }
+
+.col-lg-6 h3 {
+	margin-bottom: 30px !important;
+} 
+
 
 

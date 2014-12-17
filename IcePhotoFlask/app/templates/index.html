@@ -100,15 +100,19 @@
                 <!-- ./row -->
 	<div class="jumbotron col-lg-12">
   		<h1 id="header" year="{{ body.year }}">{{ body.header }}</h1>
-		<div class="col-lg-6">
-			<h3>Number of photographs by Month</h3>
-			<span id="byMonthLegend"></span>
-			<canvas id="byMonth" height="400" width="800"></canvas>
+  		<div class="line-legend">
+			<span style="color:rgba(31,178,178,1)"><span></span>Icelandic</span>
+			<span style="color:rgba(236,54,54,1)"><span></span>Foreign</span>
+			<span style="color:rgba(251,255,153,1)"><span></span>Unknown</span>
 		</div>
 		<div class="col-lg-6">
-			<h3>Number of photographs by Year</h3>
-			<span id="byYearLegend"></span>
-			<canvas id="byYearPie" width="800" height="400"></canvas>
+			<h3 class="fuu">Number of photographs by Month</h3>
+			<!--<span id="byMonthLegend"></span>-->
+			<canvas id="byMonth" height="350" width="500"></canvas>
+		</div>
+		<div class="col-lg-6">
+			<h3>Photographs taken over the year</h3>
+			<canvas id="byYearPie" height="350" width="500"></canvas>
 		</div>
 	</div>
 

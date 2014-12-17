@@ -175,7 +175,7 @@ function getCountByMonth(clickedYear) {
 		]
 	};
 	byMonthChart = new Chart(byMonthChartElement).Line(data, lineOptions);
-	$("#byMonthLegend").html(byMonthChart.generateLegend());
+	//$("#byMonthLegend").html(byMonthChart.generateLegend());
 }
 
 
@@ -231,20 +231,20 @@ function getPieCounts(clickedYear) {
 	var data = [
 	    {
 	        value: pieChart[index].iceland,
-	        color:"#F7464A",
-	        highlight: "#FF5A5E",
+	        color:"#97fdfd",
+	        highlight: "#65ffff",
 	        label: "Icelandic"
 	    },
 	    {
 	        value: pieChart[index].foreign,
-	        color: "#46BFBD",
-	        highlight: "#5AD3D1",
+	        color: "#fe6565",
+	        highlight: "#fc5656",
 	        label: "Foreign"
 	    },
 	    {
 	        value: pieChart[index].unknown,
-	        color: "#FDB45C",
-	        highlight: "#FFC870",
+	        color: "#fbff99",
+	        highlight: "#f6fb6f",
 	        label: "Unknown"
 	    }
 	];

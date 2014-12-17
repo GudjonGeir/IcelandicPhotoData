@@ -18,10 +18,11 @@ def index():
 		year = "00"
 	else:
 		header = "Data from the year " + year
-
+	text = "A statistical overview of photos taken in Iceland, comparing how many photos Icelanders and Foreigners take, and where they take them."
 	body = {
 		'header': header,
-		'year': year
+		'year': year,
+		'text': text
 	}  
 
 	return render_template("index.html",

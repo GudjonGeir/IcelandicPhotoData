@@ -2,7 +2,7 @@ $(document).ready(function() {
 	$("#wrapper").toggleClass("toggled");
 });
 $( document ).on( "mousemove", function( event ) {
-	if(event.pageX < 10){
+	if(event.pageX < 1){
 		console.log(event.pageX);
 		$("#wrapper").toggleClass("toggled");
 	}

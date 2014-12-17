@@ -10,7 +10,12 @@
 	<script type="text/javascript" src="static/js/chartjs/Chart.js"></script>
 	<script type="text/javascript" src="static/js/charts.js"></script>
 	<script type="text/javascript" src="static/js/FTmarkers.js"></script>
-
+	
+					{% if body.year == "00" %}
+				    <div class="jumbotron col-lg-12">
+				    	<h2>{{ body.text }}</h2>
+				    </div>
+				    {% endif %}
 	                <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-primary">
@@ -98,20 +103,22 @@
                     </div>
                 </div>
                 <!-- ./row -->
+    
 	<div class="jumbotron col-lg-12">
   		<h1 id="header" year="{{ body.year }}">{{ body.header }}</h1>
   		<div class="line-legend">
 			<span style="color:rgba(31,178,178,1)"><span></span>Icelandic</span>
 			<span style="color:rgba(236,54,54,1)"><span></span>Foreign</span>
-			<span style="color:rgba(251,255,153,1)"><span></span>Unknown</span>
+			<span style="color:rgba(223,138,19,1)"><span></span>Unknown</span>
 		</div>
 		<div class="col-lg-6">
 			<h3 class="fuu">Number of photographs by Month</h3>
-			<!--<span id="byMonthLegend"></span>-->
+			<!--<canvas id="byMonth" height="400" width="800"></canvas>-->
 			<canvas id="byMonth" height="350" width="500"></canvas>
 		</div>
 		<div class="col-lg-6">
 			<h3>Photographs taken over the year</h3>
+			<!-- <canvas id="byYearPie" height="400" width="800"></canvas> -->
 			<canvas id="byYearPie" height="350" width="500"></canvas>
 		</div>
 	</div>
@@ -120,8 +127,12 @@
     	<div id="googleMap" style="width:100%;height:600px"></div>
     </div>
 	<div class=" jumbotron col-lg-12">
-		<h3>Pie chart</h3>
-		<canvas id="byYear" height="500" width="1200"></canvas>
-		<div id="byYearPieLegend"></div>
+		<h3 style="text-align:center;">Number of photographs taken by year</h3>
+		 <div class="line-legend">
+			<span style="color:rgba(31,178,178,1)"><span></span>Icelandic</span>
+			<span style="color:rgba(236,54,54,1)"><span></span>Foreign</span>
+		</div>
+		<canvas id="byYear" height="500" width="1050"></canvas>
+		<!-- <div id="byYearPieLegend"></div> -->
 	</div>
 {% endblock %}

@@ -195,7 +195,7 @@ function getCountByYear() {
 			},
 			{
 				label: "Icelandic",
-				fillColor: "rgba(151,253,253,0.4)",
+				fillColor: "rgba(151,253,253,0.6)",
 				strokeColor: "rgba(31,178,178,1)",
 				pointColor: "rgba(151,253,253,0.5)",
 				pointStrokeColor: "#fff",

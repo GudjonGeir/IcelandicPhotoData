@@ -16,13 +16,16 @@ def index():
 	if year is None:
 		header = "Overall data from 2009-2014"
 		year = "00"
+		mapText = "A map of all photographs taken between 2009-2014"
 	else:
 		header = "Data from the year " + year
+		mapText = "A map of all photographs taken in " + year
 	text = "A statistical overview of photos taken in Iceland, comparing how many photos Icelanders and Foreigners take, and where they take them."
 	body = {
 		'header': header,
 		'year': year,
-		'text': text
+		'text': text,
+		'mapText': mapText
 	}  
 
 	return render_template("index.html",
